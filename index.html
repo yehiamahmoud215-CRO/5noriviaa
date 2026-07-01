@@ -20,6 +20,9 @@ window.SET_CONFIG = {
   oldPrice: 320,
   countdownMinutes: 30,
   stockLeft: 7,
+  // واتساب
+  whatsappNumber: "966557857002",
+  whatsappMessage: "السلام عليكم مزيد من التفاصيل عن طقم ال 5 قطع",
 
   images: {
     hero: "https://l.top4top.io/p_3833gn85f2.png",
@@ -240,6 +243,12 @@ window.SET_CONFIG = {
   .copy-toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%) translateY(20px);z-index:120;background:linear-gradient(180deg,#2c3d80,#1b2a66);color:#fff;font-family:'Cairo';font-weight:800;font-size:14px;padding:13px 22px;border-radius:14px;box-shadow:0 16px 40px -14px rgba(27,42,102,.7);border:1px solid var(--gold);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s;white-space:nowrap;max-width:92vw;text-align:center}
   .copy-toast b{color:var(--gold-light);letter-spacing:1px}
   .copy-toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+
+  /* ===== زر واتساب العائم ===== */
+  .wa-float{position:fixed;inset-inline-start:16px;bottom:96px;z-index:70;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#25d366,#128c7e);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px -6px rgba(18,140,126,.6);text-decoration:none;animation:waPulse 2.6s infinite}
+  .wa-float svg{width:32px;height:32px;fill:#fff}
+  .wa-float .wa-badge{position:absolute;top:-4px;inset-inline-end:-4px;width:18px;height:18px;background:var(--red);color:#fff;border-radius:50%;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg)}
+  @keyframes waPulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
 
   /* ===== نافذة اختيار اللون ===== */
   .modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(20,31,77,.55);backdrop-filter:blur(4px);display:flex;align-items:flex-end;justify-content:center;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
@@ -506,6 +515,12 @@ window.SET_CONFIG = {
 
 <div class="copy-toast" id="copyToast">✓ تم نسخ كود الخصم <b>NOR</b> — جاري تحويلك للطلب…</div>
 
+<!-- ===== زر واتساب العائم ===== -->
+<a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="تواصلي عبر واتساب">
+  <span class="wa-badge">1</span>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+</a>
+
 <!-- ===== نافذة اختيار اللون ===== -->
 <div class="modal-overlay" id="colorModal">
   <div class="modal">
@@ -571,6 +586,15 @@ window.SET_CONFIG = {
   document.getElementById("stockN").textContent = C.stockLeft;
   document.getElementById("mPrice").textContent = C.price;
   document.getElementById("mOld").textContent = C.oldPrice + " ر.س";
+
+  // ===== زر واتساب =====
+  (function(){
+    var wa = document.getElementById("waFloat");
+    if(wa && C.whatsappNumber){
+      var num = String(C.whatsappNumber).replace(/[^0-9]/g, "");
+      wa.href = "https://wa.me/" + num + "?text=" + encodeURIComponent(C.whatsappMessage || "");
+    }
+  })();
 
   // صور الأقسام الكبيرة
   function fillBig(id, src, icon, ph){
